@@ -37,7 +37,7 @@ products = [
     {"name": "Pencil", "price": 0.99, "stock": 100},
     {"name": "Notebook", "price": 2.50, "stock": 50},
     {"name": "Backpack", "price": 25, "stock": 20},
-    {"name": "Marker", "price": 1.5}
+    {"name": "Marker", "price": 1.5, "stock": 40}
 ]
 
 
