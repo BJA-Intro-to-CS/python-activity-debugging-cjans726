@@ -13,13 +13,13 @@ def calculate_total_price(products):
 def apply_discount(price, discount):
     if discount > 1:
         discount = discount / 100
-    return price - (price * discount)
+    return price - price * discount
 
 
 def update_stock(products, product_name, amount):
     for product in products:
         if product["name"] == product_name:
-            product["stock"] -= amount
+            product["stock"] = product["stock"] - amount
     return product
 
 
@@ -37,7 +37,7 @@ products = [
     {"name": "Pencil", "price": 0.99, "stock": 100},
     {"name": "Notebook", "price": 2.50, "stock": 50},
     {"name": "Backpack", "price": 25, "stock": 20},
-    {"name": "Marker", "price": 1.5, "stock": 40}
+    {"name": "Marker", "price": 1.5}  
 ]
 
 
@@ -60,15 +60,31 @@ print("Average price:", average)
 
 
 choice = input("Enter product name to buy: ")
-quantity = input("Enter quantity: ")
 
+
+quantity_str = input("Enter quantity: ")
+try:
+    quantity = int(quantity_str.strip())
+except ValueError:
+    try:
+        quantity = int(float(quantity_str.strip()))
+    except ValueError:
+        print("That's NOT a valid number. Using 0 instead.")
+        quantity = 0
+
+found = False
 for product in products:
     if product["name"] == choice:
-        if int(quantity) <= product["stock"]:
-            product["stock"] = product["stock"] - int(quantity)
+        found = True
+        if quantity <= product["stock"]:
+            product["stock"] = product["stock"] - quantity
             print("Purchase successful")
         else:
             print("Not enough stock")
+        break
+
+if not found:
+    print("Product not found")
 
 count = 0
 while count < len(products):
@@ -76,3 +92,4 @@ while count < len(products):
     count = count + 1
 
 print("Done")
+
